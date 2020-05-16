@@ -61,12 +61,7 @@ Fast-forward
 
 
 # リモートリポジトリへの反映
-```
-git push -u origin cors-settings
-git push -u origin master
-```
 
-# 
 ```
 git branch
   cors-settings
@@ -78,6 +73,11 @@ git branch -r
 git checkout cors-settings
 Switched to branch 'cors-settings'
 Your branch is up to date with 'origin/cors-settings'.
+```
+
+ここで例えばREADME.mdを修正する。
+
+```
 git add .
 git commit -m "add cors-settings to README.md 5"
 [cors-settings 52f32ae] add cors-settings to README.md 5
@@ -91,7 +91,12 @@ Auto-merging README.md
 Merge made by the 'recursive' strategy.
  README.md | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
-git push origin cors-settings
+```
+
+```
+git branch
+git commit -m "merge cors-settings"
+git push origin master
 ```
 
 # VS codeで矩形選択
