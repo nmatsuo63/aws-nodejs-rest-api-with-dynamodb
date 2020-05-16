@@ -5,6 +5,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-s3-sync
 
 custom:
   defaultStage: dev
@@ -22,6 +23,10 @@ custom:
       migrate: true
     migration:
       dir: offline/migrations
+  webSiteName: s3-serverless-crud
+  s3Sync:
+    - bucketName: ${self:custom.webSiteName}
+      localDir: static
 
 provider:
   name: aws
@@ -101,3 +106,25 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+    StaticSite:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.webSiteName}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+    StaticSiteS3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: StaticSite
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: "*"
+              Action:
+              - s3:GetObject
+              Resource:
+                Fn::Join: ["", ["arn:aws:s3:::",{"Ref": "StaticSite"},"/*"]]
+

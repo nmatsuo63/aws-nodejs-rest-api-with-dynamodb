@@ -98,6 +98,12 @@ git branch
 git commit -m "merge cors-settings"
 git push origin master
 ```
+# タグをつける
+
+```
+git tag cors-settings
+git tag
+```
 
 # VS codeで矩形選択
 Shift+Option+Commandを押しながら矢印。ESCで解除
