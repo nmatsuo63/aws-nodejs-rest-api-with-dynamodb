@@ -98,6 +98,30 @@ git branch
 git commit -m "merge cors-settings"
 git push origin master
 ```
+
+# ブランチとして残しておきたいとき
+```
+$ git branch cors-fix
+$ git branch
+  cors-fix
+  cors-settings
+* master
+$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+$ git checkout cors-fix
+Switched to branch 'cors-fix'
+$ git branch
+* cors-fix
+  cors-settings
+  master
+$ git add .
+$ git commit -m "add cors-fix"
+[cors-fix 3765204] add cors-fix
+ 1 file changed, 1 insertion(+)
+$ git push origin cors-fix
+```
+
 # タグをつける
 
 ```
@@ -107,3 +131,4 @@ git tag
 
 # VS codeで矩形選択
 Shift+Option+Commandを押しながら矢印。ESCで解除
+
