@@ -47,6 +47,6 @@ git branch
 ```
 git add .
 git commit -m "add cors-settings to README.md"
-git remote add origin https://github.com/nmatsuo63/aws-nodejs-rest-api-with-dynamodb.git
-git push origin cors-settings
+[cors-settings 89f13f1] add cors-settings to README.md
+ 1 file changed, 29 insertions(+)
 ```
