@@ -64,3 +64,12 @@ Fast-forward
 git push -u origin cors-settings
 git push -u origin master
 ```
+
+# 
+```
+git add .
+git commit -m "add cors-settings to README.md"
+[cors-settings 89f13f1] add cors-settings to README.md
+ 1 file changed, 29 insertions(+)
+git push -u origin cors-settings
+```
