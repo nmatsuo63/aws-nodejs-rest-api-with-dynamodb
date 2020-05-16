@@ -49,4 +49,12 @@ git add .
 git commit -m "add cors-settings to README.md"
 [cors-settings 89f13f1] add cors-settings to README.md
  1 file changed, 29 insertions(+)
+git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+git merge cors-settings
+Updating 298d900..eb804cf
+Fast-forward
+ README.md | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 ```
