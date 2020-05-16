@@ -7,13 +7,21 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.update = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
+  console.log(data);
+  // console.log(data.title);
+  // console.log(data.checked);
+  // console.log(data.content);
 
-  // validation
-  if (typeof data.text !== 'string' || typeof data.checked !== 'boolean') {
+  //validation
+  if (typeof data.title !== 'string') {
+    // if (typeof data.title !== 'string' || typeof data.checked !== 'boolean') {
     console.error('Validation Failed');
     callback(null, {
       statusCode: 400,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: {
+        'Content-Type': 'text/plain',
+        "Access-Control-Allow-Origin": "*"
+      },
       body: 'Couldn\'t update the todo item.',
     });
     return;
@@ -25,14 +33,15 @@ module.exports.update = (event, context, callback) => {
       id: event.pathParameters.id,
     },
     ExpressionAttributeNames: {
-      '#todo_text': 'text',
+      '#todo_title': 'title',
     },
     ExpressionAttributeValues: {
-      ':text': data.text,
-      ':checked': data.checked,
-      ':updatedAt': timestamp,
+      ':title': data.title,
+      // ':checked': data.checked,
+      ':content': data.content,
     },
-    UpdateExpression: 'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
+    // UpdateExpression: 'SET #todo_title = :title, checked = :checked, content = :content',
+    UpdateExpression: 'SET #todo_title = :title, content = :content',
     ReturnValues: 'ALL_NEW',
   };
 
@@ -43,7 +52,10 @@ module.exports.update = (event, context, callback) => {
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {
+          'Content-Type': 'text/plain',
+          "Access-Control-Allow-Origin": "*"
+        },
         body: 'Couldn\'t fetch the todo item.',
       });
       return;
@@ -52,6 +64,9 @@ module.exports.update = (event, context, callback) => {
     // create a response
     const response = {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
       body: JSON.stringify(result.Attributes),
     };
     callback(null, response);

@@ -11,6 +11,8 @@ module.exports.get = (event, context, callback) => {
       id: event.pathParameters.id,
     },
   };
+  // alert(event.pathParameters.id); // 入れてみたが、発生しない
+  // alert('aaa'); // 入れてみたが、発生しない
 
   // fetch todo from the database
   dynamoDb.get(params, (error, result) => {
@@ -19,7 +21,10 @@ module.exports.get = (event, context, callback) => {
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {
+          'Content-Type': 'text/plain',
+          "Access-Control-Allow-Origin": "*"
+        },
         body: 'Couldn\'t fetch the todo item.',
       });
       return;
