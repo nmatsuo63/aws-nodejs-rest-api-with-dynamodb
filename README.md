@@ -58,3 +58,9 @@ Fast-forward
  README.md | 29 +++++++++++++++++++++++++++++
  1 file changed, 29 insertions(+)
 ```
+
+# リモートリポジトリへの反映
+```
+git push -u origin cors-settings
+git push -u origin master
+```
