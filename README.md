@@ -42,7 +42,7 @@ git branch
   master
 ```
 
-ここで、README.mdを修正したとする。
+ここで、README.mdを修正したとする。~~
 
 ```
 git add .
