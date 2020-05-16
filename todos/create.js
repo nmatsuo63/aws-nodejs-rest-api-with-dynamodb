@@ -8,11 +8,15 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  if (typeof data.text !== 'string') {
-    console.error('Validation Failed');
+  if (typeof data.title !== 'string') {
+    // if (typeof data.text !== 'string') {
+      console.error('Validation Failed');
     callback(null, {
       statusCode: 400,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: {
+        'Content-Type': 'text/plain',
+        "Access-Control-Allow-Origin": "*"
+      },
       body: 'Couldn\'t create the todo item.',
     });
     return;
@@ -22,10 +26,12 @@ module.exports.create = (event, context, callback) => {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
       id: uuid.v1(),
-      text: data.text,
+      title: data.title,
+      content: data.content,
+      // text: data.text,
       checked: false,
-      createdAt: timestamp,
-      updatedAt: timestamp,
+      // createdAt: timestamp,
+      // updatedAt: timestamp,
     },
   };
 
@@ -36,7 +42,10 @@ module.exports.create = (event, context, callback) => {
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {
+          'Content-Type': 'text/plain',
+          "Access-Control-Allow-Origin": "*"
+        },
         body: 'Couldn\'t create the todo item.',
       });
       return;
@@ -45,6 +54,9 @@ module.exports.create = (event, context, callback) => {
     // create a response
     const response = {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
       body: JSON.stringify(params.Item),
     };
     callback(null, response);

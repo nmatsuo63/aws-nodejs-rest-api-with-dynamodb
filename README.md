@@ -105,6 +105,8 @@ git tag cors-settings
 git tag
 ```
 
-# VS codeで矩形選択
+# VS code
+## 矩形選択
 Shift+Option+Commandを押しながら矢印。ESCで解除
-
+## 整形
+英字モードにしてから「Shift + Option + F」を押下
