@@ -9,11 +9,14 @@ new Vue({
       items: [],
       newDialog: false,
       deleteDialog: false,
+      editDialog: false, //add
       newTitle: "",
       newContent: "",
     //   isChecked:false,
       deleteTargetItem: null,
       deleteTargetIndex: null,
+      editTargetItem: null, //add
+      editTargetIndex: null, //add
       titleRules: [(v) => !!v || "Title is required"],
       contentRules: [(v) => !!v || "Content is required"],
     };
@@ -25,7 +28,7 @@ new Vue({
     });
   },
   methods: {
-    // Creato One Todo
+    // Create One Todo
     onClickNewSave: async function () {
       if (this.newTitle && this.newContent) {
         await axios.post(apiUrl, {
@@ -49,25 +52,52 @@ new Vue({
     // Update One Todo
     onChangeCheckbox: function (item) {
         console.log(item);
-        // // add　ここから
-        // const self = this;
-        // axios.get(`${apiUrl}/${item.id}`).then((res) => {
-        //   self.items = res.data;
-        // });
-        // console.log(self.items.title);
-        // // add ここまで
     
       axios.put(`${apiUrl}/${item.id}`, {
         isChecked: item.isChecked,
         title: item.title,
         content: item.content,
       });
-    //   axios.put(`${apiUrl}/${item.id}`, {
-    //     isChecked: item.isChecked,
-    //     title: this.newTitle,
-    //     content: this.newContent,
-    //   });
     },
+    // Get One Edit-Todo
+    onClickEditButton: function (item, index) {
+      // alert('Edit?');
+      this.editDialog = true;
+      this.editTargetItem = item;
+      this.editTargetIndex = index;
+      this.newTitle = item.title;
+      this.newContent = item.content;
+    },
+
+    // Get One Edit-Cancel-Todo
+    onClickEditCancel: function (item, index) {
+      this.editDialog = false;
+      this.editTargetIndex = null;
+      this.editTargetIndex = null;
+    },
+    // Edit One Todo
+    onClickEditSave: async function () {
+      if (this.newTitle && this.newContent) {
+        await axios.post(`${apiUrl}/${this.editTargetItem.id}`, {
+          title: this.newTitle,
+          content: this.newContent,
+          id:this.editTargetItem.id,
+        //   isChecked:false,
+        });
+
+        // dialogを閉じる
+        this.editDialog = false;
+
+        // フォームクリア
+        this.newTitle = "";
+        this.newContent = "";
+
+        axios.get(apiUrl).then((res) => {
+          this.items = res.data;
+        });
+      }
+    },
+
     // Get One Delete-Todo
     onClickDeleteButton: function (item, index) {
       this.deleteDialog = true;

@@ -8,9 +8,6 @@ module.exports.update = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
   console.log(data);
-  // console.log(data.title);
-  // console.log(data.checked);
-  // console.log(data.content);
 
   //validation
   if (typeof data.title !== 'string') {

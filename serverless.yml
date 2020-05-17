@@ -87,6 +87,14 @@ functions:
           path: todos/{id}
           method: delete
           cors: true
+# add @ todo-v04
+  edit:
+    handler: todos/edit.edit
+    events:
+      - http:
+          path: todos/{id}
+          method: post
+          cors: true
 
 resources:
   Resources:

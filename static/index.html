@@ -33,6 +33,10 @@
                 </v-list-tile-content>
 
                 <v-list-tile-action>
+                    <v-btn small color="green lighten-2" @click="onClickEditButton(item, index)">Edit</v-btn>
+                </v-list-tile-action>
+
+                <v-list-tile-action>
                     <v-btn small color="red error" @click="onClickDeleteButton(item, index)">Delete</v-btn>
                 </v-list-tile-action>
             </v-list-tile>
@@ -53,6 +57,25 @@
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="newDialog = false">Close</v-btn>
                     <v-btn color="blue darken-1" flat @click="onClickNewSave">Save</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="editDialog" width="500">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-form>
+                        <v-text-field v-model="newTitle" label="Title" hint="to-do title" :rules="titleRules" required></v-text-field>
+                        <v-text-field v-model="newContent" label="Content" hint="to-do description" :rules="titleRules" required></v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="editDialog = false">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click="onClickEditSave">Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
