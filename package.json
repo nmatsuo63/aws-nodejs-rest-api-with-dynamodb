@@ -5,7 +5,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.673.0",
+    "aws-sdk": "^2.814.0",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^6.1.5",
     "serverless-s3-sync": "^1.14.1",
